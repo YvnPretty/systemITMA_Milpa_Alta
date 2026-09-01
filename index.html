@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Consulta Escolar - Control Administrativo</title>
+  <title>Sistema de Control de Créditos y Registro Escolar - ITMA 2</title>
   <link rel="stylesheet" href="src/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -18,9 +18,17 @@
           <img src="itma2.webp" alt="Logo ITMA 2" class="brand-logo-img">
         </div>
         <div>
-          <h1 class="brand-title">Control Administrativo Escolar</h1>
-          <p class="brand-subtitle">Instituto Tecnológico de Milpa Alta II • Expedientes y Listas de Alumnos</p>
+          <h1 class="brand-title">Control de Créditos y Registro Escolar</h1>
+          <p class="brand-subtitle">Instituto Tecnológico de Milpa Alta II • Gestión de Créditos Cívicos, Culturales y Deportivos</p>
         </div>
+      </div>
+      <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
+        <button id="btn-add-record" class="btn btn-pink btn-sm">
+          <i class="fa-solid fa-user-plus"></i> Nuevo Alumno
+        </button>
+        <button id="btn-export-excel" class="btn btn-secondary btn-sm">
+          <i class="fa-solid fa-file-excel"></i> Guardar Excel
+        </button>
       </div>
     </header>
 
@@ -29,26 +37,26 @@
       <div class="dropzone-card" id="dropzone">
         <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" class="file-input-hidden">
         <div class="dropzone-icon">
-          <i class="fa-solid fa-folder-open"></i>
+          <i class="fa-solid fa-file-circle-plus"></i>
         </div>
-        <div class="dropzone-title">Selecciona o arrastra aquí tu lista o archivo de Excel (.xlsx, .xls, .csv)</div>
-        <p class="dropzone-desc">El sistema cargará automáticamente los registros para su consulta</p>
+        <div class="dropzone-title">Selecciona o arrastra tu lista de matriculados (.xlsx, .xls, .csv)</div>
+        <p class="dropzone-desc">El sistema cargará los alumnos para gestionar sus créditos cívicos, culturales y deportivos</p>
       </div>
     </section>
 
     <!-- Loaded File Status Bar -->
-    <section id="file-info-bar" class="query-bar" style="display: none; background: #fff1f2; border-color: rgba(244, 114, 182, 0.4);">
+    <section id="file-info-bar" class="query-bar" style="display: none; background: rgba(255, 241, 242, 0.75);">
       <div style="display: flex; align-items: center; gap: 14px;">
-        <div style="width: 42px; height: 42px; background: #ffe4e6; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #e11d48; font-size: 20px;">
-          <i class="fa-solid fa-file-excel"></i>
+        <div style="width: 44px; height: 44px; background: rgba(244, 114, 182, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #e11d48; font-size: 22px;">
+          <i class="fa-solid fa-id-card"></i>
         </div>
         <div>
-          <div style="font-weight: 700; font-size: 1rem; color: #881337;" id="loaded-file-name">Archivo.xlsx</div>
-          <div style="font-size: 0.84rem; color: #9f1239;" id="loaded-file-meta">0 registros cargados | 0 columnas</div>
+          <div style="font-weight: 700; font-size: 1rem; color: #881337;" id="loaded-file-name">Lista_Alumnos.xlsx</div>
+          <div style="font-size: 0.84rem; color: #9f1239;" id="loaded-file-meta">0 matriculados cargados</div>
         </div>
       </div>
       <button id="btn-change-file" class="btn btn-secondary btn-sm">
-        <i class="fa-solid fa-folder-plus"></i> Cargar Otro Archivo
+        <i class="fa-solid fa-folder-open"></i> Cargar Otra Lista
       </button>
     </section>
 
@@ -56,11 +64,16 @@
     <section id="query-section" class="query-bar" style="display: none;">
       <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="search-input" class="search-input" placeholder="Buscar por Nombre, Matrícula, Grupo o cualquier dato...">
+        <input type="text" id="search-input" class="search-input" placeholder="Buscar por No. de Control, Nombre, Carrera, Periodo...">
       </div>
-      <div class="filters-wrapper">
+      <div class="filters-wrapper" style="display: flex; gap: 10px; align-items: center;">
+        <select id="status-filter-select" class="select-input">
+          <option value="ALL">Todos los Estatus</option>
+          <option value="Pendiente">Pendientes</option>
+          <option value="Liberado">Liberados</option>
+        </select>
         <button id="btn-clear-search" class="btn btn-secondary btn-sm" title="Limpiar búsqueda">
-          <i class="fa-solid fa-xmark"></i> Limpiar Búsqueda
+          <i class="fa-solid fa-xmark"></i> Limpiar
         </button>
       </div>
     </section>
@@ -69,11 +82,11 @@
     <section class="table-card">
       <div class="table-header-bar">
         <div class="table-title-group">
-          <h3>Listado de Registros Cargados</h3>
-          <span class="record-badge" id="filtered-count-badge">0 resultados</span>
+          <h3>Expediente y Registro de Créditos</h3>
+          <span class="record-badge" id="filtered-count-badge">0 matriculados</span>
         </div>
         <div id="page-size-container" style="display: none; gap: 8px; align-items: center;">
-          <span style="font-size: 0.84rem; color: #9f1239;">Filas por página:</span>
+          <span style="font-size: 0.84rem; color: #9f1239; font-weight: 600;">Mostrar:</span>
           <select id="page-size-select" class="select-input" style="padding: 4px 10px; font-size: 0.84rem;">
             <option value="10">10</option>
             <option value="25" selected>25</option>
@@ -86,10 +99,10 @@
       <div class="table-responsive">
         <table class="data-table">
           <thead id="table-head">
-            <!-- Dynamic Headers -->
+            <!-- Headers -->
           </thead>
           <tbody id="table-body">
-            <!-- Dynamic Rows -->
+            <!-- Rows -->
           </tbody>
         </table>
       </div>
@@ -103,6 +116,62 @@
         </div>
       </div>
     </section>
+  </div>
+
+  <!-- Modal: Editar / Asignar Créditos a Alumno -->
+  <div class="modal-overlay" id="modal-record">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-record-title"><i class="fa-solid fa-user-pen" style="color: #f472b6;"></i> Editar Créditos de Alumno</h3>
+        <button class="modal-close" id="modal-record-close">&times;</button>
+      </div>
+      <form id="record-form">
+        <div class="modal-body">
+          <input type="hidden" id="form-record-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">No. de Control</label>
+              <input type="text" id="form-matricula" class="form-control" placeholder="Ej. 15106505" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nombre Completo del Alumno</label>
+              <input type="text" id="form-nombre" class="form-control" placeholder="Ej. RANGEL COCA IVAN ALDAIR" required>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Carrera</label>
+              <input type="text" id="form-carrera" class="form-control" placeholder="Ej. INGENIERÍA EN SISTEMAS COMPUTACIONALES" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Crédito Cívico</label>
+              <input type="text" id="form-civico" class="form-control" placeholder="Ej. 1 crédito / Básquetbol">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Crédito Cultural</label>
+              <input type="text" id="form-cultural" class="form-control" placeholder="Ej. 1 crédito / Danza">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Crédito Deportivo</label>
+              <input type="text" id="form-deportivo" class="form-control" placeholder="Ej. 1 crédito / Taekwondo">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Periodo de Cobertura</label>
+              <input type="text" id="form-periodo" class="form-control" placeholder="Ej. Ago-Dic 2024 / Ene-Jun 2025">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Estatus de Liberación</label>
+              <select id="form-estatus" class="select-input" style="width: 100%;">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Liberado">Liberado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-record-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-pink"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Toast Container -->
