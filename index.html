@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Consulta Escolar - Control Administrativo</title>
+  <link rel="stylesheet" href="src/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <div class="brand-icon logo-wrapper">
+          <img src="itma2.webp" alt="Logo ITMA 2" class="brand-logo-img">
+        </div>
+        <div>
+          <h1 class="brand-title">Control Administrativo Escolar</h1>
+          <p class="brand-subtitle">Instituto Tecnológico de Milpa Alta II • Expedientes y Listas de Alumnos</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- File Upload Dropzone -->
+    <section style="margin-bottom: 24px;">
+      <div class="dropzone-card" id="dropzone">
+        <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" class="file-input-hidden">
+        <div class="dropzone-icon">
+          <i class="fa-solid fa-folder-open"></i>
+        </div>
+        <div class="dropzone-title">Selecciona o arrastra aquí tu lista o archivo de Excel (.xlsx, .xls, .csv)</div>
+        <p class="dropzone-desc">El sistema cargará automáticamente los registros para su consulta</p>
+      </div>
+    </section>
+
+    <!-- Loaded File Status Bar -->
+    <section id="file-info-bar" class="query-bar" style="display: none; background: #fff1f2; border-color: rgba(244, 114, 182, 0.4);">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div style="width: 42px; height: 42px; background: #ffe4e6; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #e11d48; font-size: 20px;">
+          <i class="fa-solid fa-file-excel"></i>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 1rem; color: #881337;" id="loaded-file-name">Archivo.xlsx</div>
+          <div style="font-size: 0.84rem; color: #9f1239;" id="loaded-file-meta">0 registros cargados | 0 columnas</div>
+        </div>
+      </div>
+      <button id="btn-change-file" class="btn btn-secondary btn-sm">
+        <i class="fa-solid fa-folder-plus"></i> Cargar Otro Archivo
+      </button>
+    </section>
+
+    <!-- Query & Search Bar -->
+    <section id="query-section" class="query-bar" style="display: none;">
+      <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="search-input" class="search-input" placeholder="Buscar por Nombre, Matrícula, Grupo o cualquier dato...">
+      </div>
+      <div class="filters-wrapper">
+        <button id="btn-clear-search" class="btn btn-secondary btn-sm" title="Limpiar búsqueda">
+          <i class="fa-solid fa-xmark"></i> Limpiar Búsqueda
+        </button>
+      </div>
+    </section>
+
+    <!-- Dynamic Data Table -->
+    <section class="table-card">
+      <div class="table-header-bar">
+        <div class="table-title-group">
+          <h3>Listado de Registros Cargados</h3>
+          <span class="record-badge" id="filtered-count-badge">0 resultados</span>
+        </div>
+        <div id="page-size-container" style="display: none; gap: 8px; align-items: center;">
+          <span style="font-size: 0.84rem; color: #9f1239;">Filas por página:</span>
+          <select id="page-size-select" class="select-input" style="padding: 4px 10px; font-size: 0.84rem;">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead id="table-head">
+            <!-- Dynamic Headers -->
+          </thead>
+          <tbody id="table-body">
+            <!-- Dynamic Rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-bar" id="pagination-section" style="display: none;">
+        <span id="pagination-info">Mostrando 0-0 de 0</span>
+        <div class="page-controls">
+          <button id="btn-prev-page" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+          <span id="page-indicator" style="font-weight: 700; color: #881337;">Página 1</span>
+          <button id="btn-next-page" class="btn btn-secondary btn-sm">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="controller/index.js"></script>
+</body>
+
+</html>

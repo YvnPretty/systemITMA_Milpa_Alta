@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERPUNK COMMAND CENTER v4.0 | TS_ERT SECURITY HUB</title>
+  <meta name="description" content="Centro de Mando Cyberpunk interactivo con matriz en vivo, telemetría y consola de comandos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-matrix crt-enabled">
+
+  <!-- Matrix Canvas Background -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- CRT Overlay Scanlines -->
+  <div id="crt-overlay" class="crt-scanline"></div>
+
+  <!-- App Wrapper -->
+  <div id="app-container">
+    
+    <!-- Top Navigation / Header HUD -->
+    <header id="main-header" class="glass-panel">
+      <div class="header-brand">
+        <div class="pulse-indicator"></div>
+        <span class="brand-title">TS_ERT // CYBERPUNK COMMAND CENTER</span>
+        <span class="badge-status">SYS_ONLINE</span>
+      </div>
+
+      <div class="header-controls">
+        <div class="clock-display" id="hud-clock">00:00:00 UTC</div>
+        
+        <div class="control-group">
+          <label for="theme-select">TEMA:</label>
+          <select id="theme-select" class="cyber-select">
+            <option value="theme-matrix">Green Matrix</option>
+            <option value="theme-cyber">Cyberpunk Cyan</option>
+            <option value="theme-amber">Amber Vault</option>
+            <option value="theme-blood">Red Alert</option>
+          </select>
+        </div>
+
+        <button id="toggle-crt-btn" class="cyber-btn" title="Activar/Desactivar efecto CRT">CRT: ON</button>
+        <button id="toggle-audio-btn" class="cyber-btn" title="Sonidos sintéticos Cyberpunk">AUDIO: OFF</button>
+        <button id="toggle-fullscreen-btn" class="cyber-btn" title="Pantalla Completa F11">FULLSCREEN</button>
+      </div>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <main id="main-grid">
+      
+      <!-- Left Column: Telemetry & Network Status -->
+      <section class="grid-column left-col">
+        
+        <!-- System Telemetry Widget -->
+        <article class="glass-card telemetry-card">
+          <h2 class="card-title">
+            <span class="icon">⚡</span> TELEMETRÍA DEL SISTEMA
+          </h2>
+          <div class="telemetry-metrics">
+            <div class="metric-item">
+              <div class="metric-header">
+                <span>CPU CORE LOAD</span>
+                <span id="cpu-val">28%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div id="cpu-bar" class="progress-bar-fill" style="width: 28%;"></div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-header">
+                <span>MEMORIA RAM</span>
+                <span id="ram-val">4.2 / 16 GB (26%)</span>
+              </div>
+              <div class="progress-bar-track">
+                <div id="ram-bar" class="progress-bar-fill fill-cyan" style="width: 26%;"></div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-header">
+                <span>TRÁFICO DE RED</span>
+                <span id="net-val">1.2 MB/s ↑ | 4.8 MB/s ↓</span>
+              </div>
+              <div class="progress-bar-track">
+                <div id="net-bar" class="progress-bar-fill fill-magenta" style="width: 45%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Realtime Sparkline Canvas -->
+          <div class="chart-container">
+            <span class="chart-label">CPU LOAD SPECTRUM</span>
+            <canvas id="sparkline-canvas" width="300" height="60"></canvas>
+          </div>
+        </article>
+
+        <!-- Node Connection Map Simulator -->
+        <article class="glass-card node-card">
+          <h2 class="card-title">
+            <span class="icon">📡</span> MAPA DE NODOS DE RED
+          </h2>
+          <div class="node-list">
+            <div class="node-item online">
+              <span class="node-status-dot"></span>
+              <span class="node-name">GATEWAY_PRIMARY (192.168.1.1)</span>
+              <span class="node-ping">4ms</span>
+            </div>
+            <div class="node-item online">
+              <span class="node-status-dot"></span>
+              <span class="node-name">ESP32_AUDIO_STREAM</span>
+              <span class="node-ping">12ms</span>
+            </div>
+            <div class="node-item online">
+              <span class="node-status-dot"></span>
+              <span class="node-name">ESP8266_WIFI_SCANNER</span>
+              <span class="node-ping">8ms</span>
+            </div>
+            <div class="node-item warning">
+              <span class="node-status-dot"></span>
+              <span class="node-name">LINKSYS_BRIDGE_MONITOR</span>
+              <span class="node-ping">42ms</span>
+            </div>
+            <div class="node-item active">
+              <span class="node-status-dot"></span>
+              <span class="node-name">FIREWALL_DEEP_INSPECTOR</span>
+              <span class="node-ping">1ms</span>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Center Column: Audio Spectrum Visualizer & Interactive Terminal -->
+      <section class="grid-column center-col">
+        
+        <!-- Audio Visualizer Panel -->
+        <article class="glass-card visualizer-card">
+          <div class="visualizer-header">
+            <h2 class="card-title"><span class="icon">🎵</span> VISUALIZADOR DE AUDIO Y FRECUENCIAS</h2>
+            <div class="audio-controls">
+              <button id="play-synth-btn" class="cyber-btn sm">▶ SINTETIZADOR HACKER</button>
+            </div>
+          </div>
+          <canvas id="spectrum-canvas" width="600" height="100"></canvas>
+        </article>
+
+        <!-- Interactive Cyber Terminal -->
+        <article class="glass-card terminal-card">
+          <div class="terminal-header">
+            <div class="window-buttons">
+              <span class="btn-dot close"></span>
+              <span class="btn-dot min"></span>
+              <span class="btn-dot max"></span>
+            </div>
+            <span class="terminal-title">bash -- hacker-command-console v4.0</span>
+          </div>
+
+          <div id="terminal-output" class="terminal-body">
+            <div class="terminal-line welcome-line">
+              [SYSTEM OK] TS_ERT Cyberpunk Operating Shell initialized.
+            </div>
+            <div class="terminal-line">
+              Escribe <span class="cmd-highlight">'help'</span> para ver la lista de comandos disponibles.
+            </div>
+          </div>
+
+          <form id="terminal-form" class="terminal-input-row">
+            <span class="prompt-symbol">operator@hacker-os:~$</span>
+            <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Ingresa comando..." autofocus>
+            <button type="submit" class="cyber-btn sm">EJECUTAR</button>
+          </form>
+        </article>
+
+      </section>
+
+      <!-- Right Column: Packet Stream & System Logs -->
+      <section class="grid-column right-col">
+        
+        <!-- Packet Stream Sniffer Widget -->
+        <article class="glass-card sniffer-card">
+          <h2 class="card-title"><span class="icon">🛡️</span> PACKET SNIFFER DE SEGURIDAD</h2>
+          <div id="sniffer-feed" class="sniffer-feed">
+            <!-- Dynamic lines added via JS -->
+          </div>
+        </article>
+
+        <!-- Quick Action Commands -->
+        <article class="glass-card actions-card">
+          <h2 class="card-title"><span class="icon">⚙️</span> ACCIONES RÁPIDAS</h2>
+          <div class="action-buttons-grid">
+            <button class="cyber-btn action-btn" data-cmd="scan">ESCANEO DE RED</button>
+            <button class="cyber-btn action-btn" data-cmd="sysinfo">INFO SISTEMA</button>
+            <button class="cyber-btn action-btn" data-cmd="matrix">LLUVIA MATRIX</button>
+            <button class="cyber-btn action-btn" data-cmd="clear">LIMPIAR CONSOLA</button>
+          </div>
+        </article>
+
+      </section>
+
+    </main>
+
+    <!-- Footer HUD -->
+    <footer id="main-footer" class="glass-panel">
+      <span>IP LOCAL: 192.168.1.100</span>
+      <span>ENCRIPTACIÓN: AES-256-GCM</span>
+      <span>ESTADO SECURE: PROTEGIDO</span>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
