@@ -1,0 +1,513 @@
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root {
+  /* iOS 18 / VisionOS Translucent Rosé Glassmorphism */
+  --bg-main: #fdf2f8;
+  --glass-pink-bg: rgba(255, 228, 230, 0.55);
+  --glass-pink-card: rgba(255, 241, 242, 0.65);
+  --glass-pink-hover: rgba(253, 242, 248, 0.85);
+
+  --border-pink-glass: rgba(244, 114, 182, 0.45);
+  --border-pink-highlight: rgba(236, 72, 153, 0.65);
+
+  --accent-pink-primary: #f472b6;
+  --accent-rose: #e11d48;
+  --accent-rose-dark: #881337;
+
+  --text-main: #4c0519;
+  --text-muted: #9f1239;
+  --text-subtle: #be123c;
+
+  /* iOS Style Frosted Glass Shadows & Highlights */
+  --ios-glass-shadow: 0 12px 40px -8px rgba(244, 114, 182, 0.22), inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+  --ios-pill-shadow: 0 4px 14px rgba(244, 114, 182, 0.15);
+  --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #fdf2f8;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(244, 114, 182, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(251, 113, 133, 0.25) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(244, 114, 182, 0.2) 0px, transparent 55%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding-bottom: 60px;
+}
+
+h1, h2, h3, h4, .brand-text {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* App Container */
+.app-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 30px 22px;
+}
+
+/* Header - iOS Translucent Pink Glass */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 24px 34px;
+  background: var(--glass-pink-bg);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ios-glass-shadow);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-icon {
+  width: 58px;
+  height: 58px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  box-shadow: 0 8px 24px rgba(244, 114, 182, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+}
+
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(244, 114, 182, 0.2));
+}
+
+.brand-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent-rose-dark);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.brand-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Buttons - iOS Glass Style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-pink {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.9), rgba(244, 114, 182, 0.9));
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-pink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--accent-rose-dark);
+  border: 1.5px solid var(--border-pink-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 228, 230, 0.85);
+  border-color: var(--border-pink-highlight);
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Dropzone iOS Glass Card */
+.dropzone-card {
+  background: var(--glass-pink-bg);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 2px dashed var(--border-pink-glass);
+  border-radius: var(--radius-lg);
+  padding: 44px 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--ios-glass-shadow);
+}
+
+.dropzone-card:hover, .dropzone-card.drag-over {
+  border-color: var(--accent-rose);
+  background: rgba(255, 228, 230, 0.85);
+  transform: scale(1.004);
+  box-shadow: 0 16px 48px rgba(244, 114, 182, 0.3);
+}
+
+.dropzone-icon {
+  font-size: 48px;
+  margin-bottom: 14px;
+  color: #f472b6;
+  filter: drop-shadow(0 4px 10px rgba(244, 114, 182, 0.4));
+}
+
+.dropzone-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-rose-dark);
+  margin-bottom: 6px;
+}
+
+.dropzone-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.file-input-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Query Bar & Filters - iOS Translucent Pink Glass */
+.query-bar {
+  background: var(--glass-pink-card);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: var(--radius-lg);
+  padding: 20px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--ios-glass-shadow);
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f472b6;
+  font-size: 17px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 18px 12px 48px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: var(--radius-md);
+  color: var(--accent-rose-dark);
+  font-size: 0.94rem;
+  font-family: inherit;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  transition: var(--transition-smooth);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-rose);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.3);
+}
+
+.search-input::placeholder {
+  color: #f472b6;
+  font-weight: 500;
+}
+
+.select-input {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: var(--radius-md);
+  color: var(--accent-rose-dark);
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--accent-rose);
+}
+
+/* iOS Glass Data Table Container */
+.table-card {
+  background: var(--glass-pink-card);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1.5px solid var(--border-pink-glass);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--ios-glass-shadow);
+}
+
+.table-header-bar {
+  padding: 22px 30px;
+  background: rgba(255, 228, 230, 0.7);
+  border-bottom: 1.5px solid var(--border-pink-glass);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.table-title-group h3 {
+  color: var(--accent-rose-dark);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+/* iOS Translucent Pink Record Badge */
+.record-badge {
+  background: rgba(244, 114, 182, 0.22);
+  color: #be123c;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  border: 1.5px solid rgba(244, 114, 182, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--ios-pill-shadow);
+}
+
+/* iOS Translucent Matrícula Badge */
+.matricula-pill {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #be123c;
+  background: rgba(244, 114, 182, 0.18);
+  border: 1.5px solid rgba(244, 114, 182, 0.45);
+  padding: 4px 10px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(244, 114, 182, 0.12);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.data-table th {
+  background: rgba(255, 228, 230, 0.65);
+  color: var(--accent-rose-dark);
+  font-weight: 800;
+  padding: 16px 24px;
+  border-bottom: 1.5px solid var(--border-pink-glass);
+  user-select: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.data-table th:hover {
+  background: rgba(244, 114, 182, 0.3);
+  color: var(--accent-rose);
+}
+
+.data-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(244, 114, 182, 0.18);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.data-table tbody tr {
+  transition: var(--transition-smooth);
+}
+
+.data-table tbody tr:hover {
+  background: rgba(255, 228, 230, 0.55);
+}
+
+/* iOS Translucent Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+}
+
+.status-en-curso, .status-activo {
+  background: rgba(244, 114, 182, 0.22);
+  color: #be123c;
+  border: 1.5px solid rgba(244, 114, 182, 0.5);
+}
+
+.status-finalizado, .status-aprobado {
+  background: rgba(34, 197, 94, 0.18);
+  color: #15803d;
+  border: 1.5px solid rgba(34, 197, 94, 0.4);
+}
+
+.status-pendiente {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+}
+
+/* Pagination Bar */
+.pagination-bar {
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 228, 230, 0.7);
+  border-top: 1.5px solid var(--border-pink-glass);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.page-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* iOS Translucent Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  background: rgba(255, 241, 242, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-left: 4px solid #e11d48;
+  border: 1.5px solid var(--border-pink-glass);
+  border-left-width: 4px;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 40px rgba(244, 114, 182, 0.25);
+  color: var(--accent-rose-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideIn 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast-success { border-left-color: #10b981; }
+.toast-error { border-left-color: #e11d48; }
+.toast-info { border-left-color: #f472b6; }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Empty State */
+.empty-state {
+  padding: 64px 28px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  font-size: 54px;
+  margin-bottom: 16px;
+  color: #f472b6;
+  filter: drop-shadow(0 6px 14px rgba(244, 114, 182, 0.4));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
