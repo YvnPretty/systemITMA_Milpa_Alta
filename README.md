@@ -6,7 +6,7 @@ Plataforma web moderna y profesional para el **Control Administrativo Escolar y 
 
 Diseñada con una interfaz interactiva basada en el sistema **iOS 18 Translucent Rosé Glassmorphism**, esta aplicación permite a docentes y coordinadores académicos cargar, consultar, filtrar, ordenar y visualizar expedientes en formato Excel (`.xlsx`, `.xls`, `.csv`) directamente desde el navegador de manera segura y sin requerir servidores externos.
 
-🌐 **Despliegue en GitHub Pages:** [https://YvnPretty.github.io/systemITMA_Milpa_Alta/](https://YvnPretty.github.io/systemITMA_Milpa_Alta/)
+🌐 **Despliegue en GitHub Pages:** [https://yvnpretty.github.io/systemITMA_Milpa_Alta/](https://yvnpretty.github.io/systemITMA_Milpa_Alta/)
 
 ---
 
