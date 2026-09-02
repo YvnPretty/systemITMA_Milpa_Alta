@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 
 // --- ESTADO GLOBAL Y CONFIGURACIÓN ---
-const STORAGE_KEY = 'SCHOOL_CREDITS_DATA_V6';
+const STORAGE_KEY = 'SCHOOL_CREDITS_DATA_V8';
 
 const STANDARD_HEADERS = [
   'No. de Control',
@@ -28,6 +28,11 @@ let appState = {
 
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
+  try {
+    localStorage.removeItem('SCHOOL_CREDITS_DATA_V7');
+    localStorage.removeItem('SCHOOL_CREDITS_DATA_V6');
+    localStorage.removeItem('SCHOOL_ADMIN_EXCEL_DATA_V5');
+  } catch (e) {}
   initApp();
 });
 
